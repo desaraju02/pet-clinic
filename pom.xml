@@ -49,10 +49,17 @@
 
 <!--  </scm>-->
 
+<!--    <scm>-->
+<!--        <connection>scm:git:git@github.com:desaraju02/pet-clinic.git</connection>-->
+<!--        <url>scm:git:git@github.com:desaraju02/pet-clinic.git</url>-->
+<!--        <developerConnection>scm:git:git@github.com:desaraju02/pet-clinic.git</developerConnection>-->
+<!--      <tag>pet-clinic-0.0.1</tag>-->
+<!--  </scm>-->
+
+
     <scm>
-        <connection>scm:git:git@github.com:desaraju02/pet-clinic.git</connection>
-        <url>scm:git:git@github.com:desaraju02/pet-clinic.git</url>
-        <developerConnection>scm:git:git@github.com:desaraju02/pet-clinic.git</developerConnection>
-      <tag>pet-clinic-0.0.1</tag>
-  </scm>
+        <connection>scm:git:https://github.com/desaraju02/pet-clinic.git</connection>
+        <url>http://github.com/desaraju02/pet-clinic</url>
+        <developerConnection>scm:git:https://github.com/desaraju02/pet-clinic.git</developerConnection>
+    </scm>
 </project>
