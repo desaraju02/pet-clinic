@@ -1,11 +1,11 @@
 package com.nag.services.map;
 
 import com.nag.model.Vet;
-import com.nag.services.CrudService;
+import com.nag.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet,Long> implements CrudService<Vet,Long> {
+public class VetServiceMap extends AbstractMapService<Vet,Long> implements VetService {
     
     @Override
     public Vet save(Vet object) {
