@@ -1,33 +1,66 @@
 package com.nag.bootstrap;
 
 import com.nag.model.Owner;
+import com.nag.model.Pet;
+import com.nag.model.PetType;
 import com.nag.model.Vet;
 import com.nag.services.OwnerService;
+import com.nag.services.PetTypeService;
 import com.nag.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
 
     @Override
     public void run(String... args) throws Exception {
 
+
+        PetType dog = new PetType();
+        dog.setName("Dog 1");
+
+        PetType dog2 = new PetType();
+        dog2.setName("Dog 2");
+
+        PetType savedDogType = petTypeService.save(dog);
+        PetType save2ndDogType = petTypeService.save(dog2);
+
+
+
+
+        System.out.println("PetTypes loaded: ");
         Owner owner1 = new Owner();
         //owner1.setId(1L);
         owner1.setFirstName("Naren");
         owner1.setLastName("Narendra");
+        owner1.setAddress("ABCD Road");
+        owner1.setCity("New Delhi");
+        owner1.setTelephone("1234567890");
+
+        Pet pet1 = new Pet();
+        pet1.setPetType(savedDogType);
+        pet1.setName("uffff");
+        pet1.setBirthDate(LocalDate.now());
+        pet1.setOwner(owner1);
+
+        owner1.getPets().add(pet1);
+
 
         ownerService.save(owner1);
 
@@ -36,6 +69,17 @@ public class DataLoader implements CommandLineRunner {
         //owner11.setId(2L);
         owner11.setFirstName("Naren11");
         owner11.setLastName("Narendra11");
+        owner11.setAddress("ASDF Road");
+        owner11.setCity("New Delhi");
+        owner11.setTelephone("1234567890");
+
+
+        Pet pet11 = new Pet();
+        pet11.setPetType(save2ndDogType);
+        pet11.setName("uffff 11");
+        pet11.setBirthDate(LocalDate.now());
+        pet11.setOwner(owner11);
+        owner11.getPets().add(pet11);
 
         ownerService.save(owner11);
 
