@@ -10,17 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Set;
 
 @Controller
-
+@RequestMapping("/owners")
 public class OwnerController {
 
     @Autowired
     private OwnerService ownerService;
 
-    @RequestMapping("/owners")
+    @RequestMapping({"/",""})
     public String getListOfOwners(Model model)
     {
         Set<Owner> ownersSet = ownerService.findAll();
         model.addAttribute("owners", ownersSet);
         return "owners/index";
+    }
+
+    @RequestMapping("/find")
+    public String findOwners()
+    {
+        return "notimplemented";
     }
 }

@@ -1,13 +1,10 @@
 package com.nag.bootstrap;
 
-import com.nag.model.Owner;
-import com.nag.model.Pet;
-import com.nag.model.PetType;
-import com.nag.model.Vet;
+import com.nag.model.*;
 import com.nag.services.OwnerService;
 import com.nag.services.PetTypeService;
+import com.nag.services.SpecialityService;
 import com.nag.services.VetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,19 +16,24 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
-    @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
-
 
     @Override
     public void run(String... args) throws Exception {
 
+        int count = petTypeService.findAll().size();
+        if(count == 0)
+         loadData();
+    }
 
+    private void loadData() {
         PetType dog = new PetType();
         dog.setName("Dog 1");
 
@@ -42,7 +44,13 @@ public class DataLoader implements CommandLineRunner {
         PetType save2ndDogType = petTypeService.save(dog2);
 
 
+        Speciality radiology = new Speciality();
+        radiology.setDescription("This is Radiology");
+        Speciality savedRadiology = specialityService.save(radiology);
 
+        Speciality surgery = new Speciality();
+        surgery.setDescription("This is Surgery");
+        Speciality savedSurgery = specialityService.save(surgery);
 
         System.out.println("PetTypes loaded: ");
         Owner owner1 = new Owner();
@@ -86,17 +94,18 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loaded - Owners - 11");
 
         Vet vet1 = new Vet();
-       // vet1.setId(1L);
+        // vet1.setId(1L);
         vet1.setFirstName("Naren - Vet1");
         vet1.setLastName("Narendra - Vet1");
-
+        vet1.getSpecialities().add(radiology);
         vetService.save(vet1);
 
         Vet vet11 = new Vet();
-       // vet11.setId(2L);
+        // vet11.setId(2L);
         vet11.setFirstName("Naren - Vet11");
         vet11.setLastName("Narendra - Vet11");
-
+        vet11.getSpecialities().add(surgery);
+        vet11.getSpecialities().add(radiology);
         vetService.save(vet11);
         System.out.println("Loaded - Vets");
     }
