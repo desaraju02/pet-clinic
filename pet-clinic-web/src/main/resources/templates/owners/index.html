@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 <head>
     <meta charset="UTF-8">
     <title>Owners Index Page</title>
@@ -8,11 +8,11 @@
 
     <h2 th:text="'List of Owners Page'"></h2>
 
-    <table>
+    <table id="owners" class="table table-striped">
         <tr>
-            <th>Owner Id</th>
-            <th>Owner First Name</th>
-            <th>Onwer Last Name</th>
+            <th style="width: 150px;">Owner Id</th>
+            <th style="width: 150px;">Owner First Name</th>
+            <th style="width: 150px;">Onwer Last Name</th>
         </tr>
         <tr th:each="data: ${owners}">
             <td th:text="${data.id}"></td>
