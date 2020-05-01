@@ -1,10 +1,7 @@
 package com.nag.bootstrap;
 
 import com.nag.model.*;
-import com.nag.services.OwnerService;
-import com.nag.services.PetTypeService;
-import com.nag.services.SpecialityService;
-import com.nag.services.VetService;
+import com.nag.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,15 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
+                      SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -67,10 +67,18 @@ public class DataLoader implements CommandLineRunner {
         pet1.setBirthDate(LocalDate.now());
         pet1.setOwner(owner1);
 
+        Visit visit = new Visit();
+        visit.setPet(pet1);
+        visit.setDate(LocalDate.now());
+        visit.setDescription("Simbly");
+
+
+
         owner1.getPets().add(pet1);
 
 
         ownerService.save(owner1);
+        visitService.save(visit);
 
         System.out.println("Loaded - Owners");
         Owner owner11 = new Owner();
